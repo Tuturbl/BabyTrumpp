@@ -1,0 +1,29 @@
+# You can get this by right clicking on the image at: https://github.com/mrdbourke/pytorch-deep-learning/blob/main/images/04-pizza-dad.jpeg 
+# And selecting "copy image address"
+image_address = "https://private-user-images.githubusercontent.com/177924704/396119982-1ab8d67c-d2da-49da-835d-0884e0e2e1b2.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MzQzNTc5NTcsIm5iZiI6MTczNDM1NzY1NywicGF0aCI6Ii8xNzc5MjQ3MDQvMzk2MTE5OTgyLTFhYjhkNjdjLWQyZGEtNDlkYS04MzVkLTA4ODRlMGUyZTFiMi5qcGc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQxMjE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MTIxNlQxNDAwNTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01MDc5MTgwY2FlN2Y4MTc2ZGY5ZTBiM2FkNGY0NzVhZmI1MWM3ODk3N2ZiZWY2NmUxMGQxOGZlYzJlM2I1Njg2JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.CCcfYeCoBVw06Vi75YoRCwAlmOFmfeHsOyFJiagbbKQ"
+
+# Download custom image
+import requests
+from pathlib import Path
+
+# Setup path to data folder
+data_path = Path("data/")
+data_path.mkdir(exist_ok=True)
+
+# Setup custom image path
+custom_image_path = data_path / "04-pizza-dad.jpeg"
+
+# Download the image if it doesn't already exist
+if not custom_image_path.is_file():
+    with open(custom_image_path, "wb") as f:
+        # When downloading from GitHub, need to use the "raw" file link
+        request = requests.get(image_address) ### <- CHANGED
+        print(f"Downloading {custom_image_path}...")
+        f.write(request.content)
+else:
+    print(f"{custom_image_path} already exists, skipping download.")
+
+# Display image
+from IPython.display import Image, display
+
+display(Image(custom_image_path))
